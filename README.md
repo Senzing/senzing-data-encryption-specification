@@ -1,0 +1,1 @@
+# senzing-data-encryption-specification
