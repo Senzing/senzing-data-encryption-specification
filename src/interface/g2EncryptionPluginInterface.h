@@ -1,6 +1,6 @@
 
 /**********************************************************************************
-© Copyright Senzing, Inc. 2020
+© Copyright Senzing, Inc. 2020-2021
 The source code for this program is not published or otherwise divested
 of its trade secrets, irrespective of what has been deposited with the U.S.
 Copyright Office.
@@ -20,8 +20,10 @@ Copyright Office.
 
 /* constants for return codes and error conditions */
 #define G2_ENCRYPTION_PLUGIN___SUCCESS 0
-#define G2_ENCRYPTION_PLUGIN___OUTPUT_BUFFER_SIZE_ERROR -5
+#define G2_ENCRYPTION_PLUGIN___SUCCESS_WITH_INFO 1
+#define G2_ENCRYPTION_PLUGIN___SIMPLE_ERROR -1
 #define G2_ENCRYPTION_PLUGIN___CRITICAL_ERROR -20
+#define G2_ENCRYPTION_PLUGIN___OUTPUT_BUFFER_SIZE_ERROR -5
 #define G2_ENCRYPTION_PLUGIN___FAILED_SIGNATURE_VALIDATION -30
 
 
