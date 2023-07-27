@@ -299,5 +299,22 @@ else if (!signatureIsCompatible) \
 return retVal;
 
 
+#if defined(_WIN32)
+  #define _DLEXPORT __declspec(dllexport)
+#else
+  #define _DLEXPORT __attribute__ ((visibility ("default")))
+#endif
+
+
+_DLEXPORT G2EncryptionPluginInitPluginFunc G2Encryption_InitPlugin;
+_DLEXPORT G2EncryptionPluginClosePluginFunc G2Encryption_ClosePlugin;
+
+_DLEXPORT G2EncryptionPluginGetSignatureFunc G2Encryption_GetSignature;
+_DLEXPORT G2EncryptionPluginValidateSignatureCompatibilityFunc G2Encryption_ValidateSignatureCompatibility;
+
+_DLEXPORT G2EncryptionPluginEncryptDataFieldFunc G2Encryption_EncryptDataField;
+_DLEXPORT G2EncryptionPluginDecryptDataFieldFunc G2Encryption_DecryptDataField;
+
+
 #endif /* header file */
 
