@@ -1,6 +1,6 @@
 
 /**********************************************************************************
-© Copyright Senzing, Inc. 2020-2021
+© Copyright Senzing, Inc. 2020-2023
 The source code for this program is not published or otherwise divested
 of its trade secrets, irrespective of what has been deposited with the U.S.
 Copyright Office.
@@ -20,7 +20,7 @@ Copyright Office.
 
 /* constants for return codes and error conditions */
 #define G2_ENCRYPTION_PLUGIN___SUCCESS 0
-#define G2_ENCRYPTION_PLUGIN___SUCCESS_WITH_INFO 1
+
 #define G2_ENCRYPTION_PLUGIN___SIMPLE_ERROR -1
 #define G2_ENCRYPTION_PLUGIN___CRITICAL_ERROR -20
 #define G2_ENCRYPTION_PLUGIN___OUTPUT_BUFFER_SIZE_ERROR -5
@@ -65,6 +65,12 @@ typedef G2EncryptionPluginEncryptDataFieldFunc* G2EncryptionPluginEncryptDataFie
 typedef int G2EncryptionPluginDecryptDataFieldFunc(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize);
 typedef G2EncryptionPluginDecryptDataFieldFunc* G2EncryptionPluginDecryptDataFieldFuncPtr;
 
+/* function pointer types for encryption/decryption with deterministic behavior */
+typedef int G2EncryptionPluginEncryptDataFieldDeterministicFunc(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize);
+typedef G2EncryptionPluginEncryptDataFieldDeterministicFunc* G2EncryptionPluginEncryptDataDeterministicFieldFuncPtr;
+typedef int G2EncryptionPluginDecryptDataFieldDeterministicFunc(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize);
+typedef G2EncryptionPluginDecryptDataFieldDeterministicFunc* G2EncryptionPluginDecryptDataFieldDeterministicFuncPtr;
+
 
 /* @def the function header for initPlugin (can't use typedef) */
 #define G2_ENCRYPTION_PLUGIN_FUNCTION_INIT_PLUGIN int G2Encryption_InitPlugin(const struct CParameterList* configParams, char *error, const size_t maxErrorSize, size_t* errorSize)
@@ -75,6 +81,9 @@ typedef G2EncryptionPluginDecryptDataFieldFunc* G2EncryptionPluginDecryptDataFie
 
 #define G2_ENCRYPTION_PLUGIN_FUNCTION_ENCRYPT_DATA_FIELD int G2Encryption_EncryptDataField(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
 #define G2_ENCRYPTION_PLUGIN_FUNCTION_DECRYPT_DATA_FIELD int G2Encryption_DecryptDataField(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
+
+#define G2_ENCRYPTION_PLUGIN_FUNCTION_ENCRYPT_DATA_FIELD_DETERMINISTIC int G2Encryption_EncryptDataFieldDeterministic(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
+#define G2_ENCRYPTION_PLUGIN_FUNCTION_DECRYPT_DATA_FIELD_DETERMINISTIC int G2Encryption_DecryptDataFieldDeterministic(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
 
 
 
@@ -221,6 +230,86 @@ return retVal;
 
 
 /**
+@def a macro which must be placed inside the encrypt function, to prime the funcion
+*/
+#define ENCRYPT_DATA_FIELD_DETERMINISTIC_FUNCTION_PREAMBLE \
+/* set up base variables */ \
+int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
+struct ErrorInfoData encryptionErrorData; \
+encryptionErrorData.mErrorOccurred = 0; \
+bool resultSizeErrorOccurred = false; \
+*resultSize = 0; \
+*errorSize = 0;
+
+/**
+@def a macro which must be placed inside the encrypt function, to finialize the funcion
+*/
+#define ENCRYPT_DATA_FIELD_DETERMINISTIC_FUNCTION_POSTAMBLE \
+/* prepare response */ \
+if (encryptionErrorData.mErrorOccurred) \
+{ \
+  char errorText[G2_ENCRYPTION_PLUGIN___MAX_ERROR_MESSAGE_LENGTH]; \
+  errorText[0] = '\0'; \
+  strcat(errorText,"Data encryption error occurred: '"); \
+  strcat(errorText,encryptionErrorData.mErrorMessage); \
+  strcat(errorText,"'"); \
+  strncpy(error, errorText, maxErrorSize); \
+  error[maxErrorSize - 1] = '\0'; \
+  *errorSize = strlen(errorText); \
+  retVal = G2_ENCRYPTION_PLUGIN___CRITICAL_ERROR; \
+} \
+else if (resultSizeErrorOccurred) \
+{ \
+  const char* errorText = "Return size exceeds maximum allowed size"; \
+  strncpy(error, errorText, maxErrorSize); \
+  error[maxErrorSize - 1] = '\0'; \
+  *errorSize = strlen(errorText); \
+  retVal = G2_ENCRYPTION_PLUGIN___OUTPUT_BUFFER_SIZE_ERROR; \
+} \
+return retVal;
+
+
+/**
+@def a macro which must be placed inside the decrypt function, to prime the funcion
+*/
+#define DECRYPT_DATA_FIELD_DETERMINISTIC_FUNCTION_PREAMBLE \
+/* set up base variables */ \
+int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
+struct ErrorInfoData decryptionErrorData; \
+decryptionErrorData.mErrorOccurred = 0; \
+bool resultSizeErrorOccurred = false; \
+*resultSize = 0; \
+*errorSize = 0;
+
+/**
+@def a macro which must be placed inside the decrypt function, to finialize the funcion
+*/
+#define DECRYPT_DATA_FIELD_DETERMINISTIC_FUNCTION_POSTAMBLE \
+/* prepare response */ \
+if (decryptionErrorData.mErrorOccurred) \
+{ \
+  char errorText[G2_ENCRYPTION_PLUGIN___MAX_ERROR_MESSAGE_LENGTH]; \
+  errorText[0] = '\0'; \
+  strcat(errorText,"Data decryption error occurred: '"); \
+  strcat(errorText,decryptionErrorData.mErrorMessage); \
+  strcat(errorText,"'"); \
+  strncpy(error, errorText, maxErrorSize); \
+  error[maxErrorSize - 1] = '\0'; \
+  *errorSize = strlen(errorText); \
+  retVal = G2_ENCRYPTION_PLUGIN___CRITICAL_ERROR; \
+} \
+else if (resultSizeErrorOccurred) \
+{ \
+  const char* errorText = "Return size exceeds maximum allowed size"; \
+  strncpy(error, errorText, maxErrorSize); \
+  error[maxErrorSize - 1] = '\0'; \
+  *errorSize = strlen(errorText); \
+  retVal = G2_ENCRYPTION_PLUGIN___OUTPUT_BUFFER_SIZE_ERROR; \
+} \
+return retVal;
+
+
+/**
 @def a macro which must be placed inside the get-signature function, to prime the funcion
 */
 #define GET_SIGNATURE_FUNCTION_PREAMBLE \
@@ -314,6 +403,9 @@ _DLEXPORT G2EncryptionPluginValidateSignatureCompatibilityFunc G2Encryption_Vali
 
 _DLEXPORT G2EncryptionPluginEncryptDataFieldFunc G2Encryption_EncryptDataField;
 _DLEXPORT G2EncryptionPluginDecryptDataFieldFunc G2Encryption_DecryptDataField;
+
+_DLEXPORT G2EncryptionPluginEncryptDataFieldDeterministicFunc G2Encryption_EncryptDataFieldDeterministic;
+_DLEXPORT G2EncryptionPluginDecryptDataFieldDeterministicFunc G2Encryption_DecryptDataFieldDeterministic;
 
 
 #endif /* header file */
