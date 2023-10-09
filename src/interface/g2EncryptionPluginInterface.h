@@ -67,7 +67,7 @@ typedef G2EncryptionPluginDecryptDataFieldFunc* G2EncryptionPluginDecryptDataFie
 
 /* function pointer types for encryption/decryption with deterministic behavior */
 typedef int G2EncryptionPluginEncryptDataFieldDeterministicFunc(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize);
-typedef G2EncryptionPluginEncryptDataFieldDeterministicFunc* G2EncryptionPluginEncryptDataDeterministicFieldFuncPtr;
+typedef G2EncryptionPluginEncryptDataFieldDeterministicFunc* G2EncryptionPluginEncryptDataFieldDeterministicFuncPtr;
 typedef int G2EncryptionPluginDecryptDataFieldDeterministicFunc(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize);
 typedef G2EncryptionPluginDecryptDataFieldDeterministicFunc* G2EncryptionPluginDecryptDataFieldDeterministicFuncPtr;
 
