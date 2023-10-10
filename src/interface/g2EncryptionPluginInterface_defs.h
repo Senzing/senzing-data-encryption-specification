@@ -23,6 +23,10 @@ Copyright Office.
 #define G2_ENCRYPTION_PLUGIN___OUTPUT_BUFFER_SIZE_ERROR -5
 #define G2_ENCRYPTION_PLUGIN___FAILED_SIGNATURE_VALIDATION -30
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
 /* basic data field structures */
 struct CParameterTuple
@@ -67,6 +71,10 @@ typedef int G2EncryptionPluginEncryptDataFieldDeterministicFunc(const char *inpu
 typedef G2EncryptionPluginEncryptDataFieldDeterministicFunc* G2EncryptionPluginEncryptDataFieldDeterministicFuncPtr;
 typedef int G2EncryptionPluginDecryptDataFieldDeterministicFunc(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize);
 typedef G2EncryptionPluginDecryptDataFieldDeterministicFunc* G2EncryptionPluginDecryptDataFieldDeterministicFuncPtr;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* header file */
 

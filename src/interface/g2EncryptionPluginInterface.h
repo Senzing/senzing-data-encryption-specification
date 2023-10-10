@@ -12,6 +12,11 @@ Copyright Office.
 #include "g2EncryptionPluginInterface_defs.h"
 #include "g2EncryptionPluginInterface_macros.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #if defined(_WIN32)
   #define _DLEXPORT __declspec(dllexport)
 #else
@@ -29,6 +34,10 @@ _DLEXPORT G2_ENCRYPTION_PLUGIN_FUNCTION_DECRYPT_DATA_FIELD;
 
 _DLEXPORT G2_ENCRYPTION_PLUGIN_FUNCTION_ENCRYPT_DATA_FIELD_DETERMINISTIC;
 _DLEXPORT G2_ENCRYPTION_PLUGIN_FUNCTION_DECRYPT_DATA_FIELD_DETERMINISTIC;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* header file */
 
