@@ -1,6 +1,6 @@
 
 /**********************************************************************************
-© Copyright Senzing, Inc. 2020-2023
+© Copyright Senzing, Inc. 2023
 The source code for this program is not published or otherwise divested
 of its trade secrets, irrespective of what has been deposited with the U.S.
 Copyright Office.
@@ -12,6 +12,7 @@ Copyright Office.
 #include "g2EncryptionPluginInterface_defs.h"
 #include <string.h>
 #include <stdbool.h>
+
 
 #define G2_ENCRYPTION_PLUGIN_FUNCTION_INIT_PLUGIN int G2Encryption_InitPlugin(const struct CParameterList* configParams, char *error, const size_t maxErrorSize, size_t* errorSize)
 #define G2_ENCRYPTION_PLUGIN_FUNCTION_CLOSE_PLUGIN int G2Encryption_ClosePlugin(char *error, const size_t maxErrorSize, size_t* errorSize)
@@ -326,6 +327,7 @@ else if (!signatureIsCompatible) \
   retVal = G2_ENCRYPTION_PLUGIN___FAILED_SIGNATURE_VALIDATION; \
 } \
 return retVal;
+
 
 #endif /* header file */
 

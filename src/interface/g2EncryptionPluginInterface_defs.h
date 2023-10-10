@@ -1,6 +1,6 @@
 
 /**********************************************************************************
-© Copyright Senzing, Inc. 2020-2023
+© Copyright Senzing, Inc. 2023
 The source code for this program is not published or otherwise divested
 of its trade secrets, irrespective of what has been deposited with the U.S.
 Copyright Office.
@@ -11,6 +11,7 @@ Copyright Office.
 
 /* standard C headers */
 #include <stddef.h>
+
 
 /* constants for defining data structures */
 #define G2_ENCRYPTION_PLUGIN___MAX_ERROR_MESSAGE_LENGTH 1024
@@ -23,10 +24,12 @@ Copyright Office.
 #define G2_ENCRYPTION_PLUGIN___OUTPUT_BUFFER_SIZE_ERROR -5
 #define G2_ENCRYPTION_PLUGIN___FAILED_SIGNATURE_VALIDATION -30
 
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
+
 
 /* basic data field structures */
 struct CParameterTuple
@@ -72,9 +75,11 @@ typedef G2EncryptionPluginEncryptDataFieldDeterministicFunc* G2EncryptionPluginE
 typedef int G2EncryptionPluginDecryptDataFieldDeterministicFunc(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize);
 typedef G2EncryptionPluginDecryptDataFieldDeterministicFunc* G2EncryptionPluginDecryptDataFieldDeterministicFuncPtr;
 
+
 #ifdef __cplusplus
 }
 #endif
+
 
 #endif /* header file */
 
