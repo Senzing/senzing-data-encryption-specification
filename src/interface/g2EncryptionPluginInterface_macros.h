@@ -6,30 +6,149 @@ of its trade secrets, irrespective of what has been deposited with the U.S.
 Copyright Office.
 **********************************************************************************/
 
+
 #ifndef G2_ENCRYPTION_PLUGIN_INTERFACE_HEADER_MACROS_INCLUDED
 #define G2_ENCRYPTION_PLUGIN_INTERFACE_HEADER_MACROS_INCLUDED
+
 
 #include "g2EncryptionPluginInterface_defs.h"
 #include <string.h>
 #include <stdbool.h>
 
 
+/*
+ * Function prototype definitions
+ */
+
+
+/* Function used to initialize a plugin
+ *
+ * @param configParams A set of configuration parameters
+ * @param error A buffer through which error messages may be returned
+ * @param maxErrorSize The maximum size of the error buffer
+ * @param errorSize The size of an error message put into the error buffer
+ * @return success/failure return code
+ */
 #define G2_ENCRYPTION_PLUGIN_FUNCTION_INIT_PLUGIN int G2Encryption_InitPlugin(const struct CParameterList* configParams, char *error, const size_t maxErrorSize, size_t* errorSize)
+
+/* Function used to close a plugin
+ *
+ * @param error A buffer through which error messages may be returned
+ * @param maxErrorSize The maximum size of the error buffer
+ * @param errorSize The size of an error message put into the error buffer
+ * @return success/failure return code
+ */
 #define G2_ENCRYPTION_PLUGIN_FUNCTION_CLOSE_PLUGIN int G2Encryption_ClosePlugin(char *error, const size_t maxErrorSize, size_t* errorSize)
 
+
+/* Function used to retrieve the plugin signature
+ *
+ * This function retrieves the signature of the encryption plugin.  This signature is stored in
+ * the datastore, and verified during system startup, to ensure that the encyption is consistent.
+ *
+ * @param signature A buffer through which the plugin signature may be returned
+ * @param maxSignatureSize The maximum size of the signature buffer
+ * @param signatureSize The size of a signature put into the signature buffer
+ * @param error A buffer through which error messages may be returned
+ * @param maxErrorSize The maximum size of the error buffer
+ * @param errorSize The size of an error message put into the error buffer
+ * @return success/failure return code
+ */
 #define G2_ENCRYPTION_PLUGIN_FUNCTION_GET_SIGNATURE int G2Encryption_GetSignature(char *signature, const size_t maxSignatureSize, size_t* signatureSize, char *error, const size_t maxErrorSize, size_t* errorSize)
+
+/* Function used to validate the plugin signature compatibility
+ *
+ * This function return the SUCCESS return code if the signature compatibility is successfully
+ * validated against the known system encryption signature.
+ *
+ * @param signatureToValidate A plugin signature to be validated
+ * @param signatureToValidateSize The size of the plugin signature to be validated
+ * @param error A buffer through which error messages may be returned
+ * @param maxErrorSize The maximum size of the error buffer
+ * @param errorSize The size of an error message put into the error buffer
+ * @return success/failure return code
+ */
 #define G2_ENCRYPTION_PLUGIN_FUNCTION_VALIDATE_SIGNATURE_COMPATIBILITY int G2Encryption_ValidateSignatureCompatibility(const char *signatureToValidate, const size_t signatureToValidateSize, char *error, const size_t maxErrorSize, size_t* errorSize)
 
+
+/* Function used to encrypt a data value
+ *
+ * This function may use any encryption methodologies, including those with nondeterministic
+ * results.
+ *
+ * @param input A data value to be encrypted
+ * @param inputSize The size of the data value to be encrypted
+ * @param result A buffer through which the encrypted value may be returned
+ * @param maxResultSize The maximum size of the result buffer
+ * @param resultSize The size of an result put into the result buffer
+ * @param error A buffer through which error messages may be returned
+ * @param maxErrorSize The maximum size of the error buffer
+ * @param errorSize The size of an error message put into the error buffer
+ * @return success/failure return code
+ */
 #define G2_ENCRYPTION_PLUGIN_FUNCTION_ENCRYPT_DATA_FIELD int G2Encryption_EncryptDataField(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
+
+/* Function used to decrypt a data value
+ *
+ * This function may use any encryption methodologies, including those with nondeterministic
+ * results.
+ *
+ * @param input A data value to be decrypted
+ * @param inputSize The size of the data value to be decrypted
+ * @param result A buffer through which the decrypted value may be returned
+ * @param maxResultSize The maximum size of the result buffer
+ * @param resultSize The size of an result put into the result buffer
+ * @param error A buffer through which error messages may be returned
+ * @param maxErrorSize The maximum size of the error buffer
+ * @param errorSize The size of an error message put into the error buffer
+ * @return success/failure return code
+ */
 #define G2_ENCRYPTION_PLUGIN_FUNCTION_DECRYPT_DATA_FIELD int G2Encryption_DecryptDataField(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
 
+
+/* Function used to encrypt a data value (deterministic methods)
+ *
+ * This function may only use encryption methodologies that are deterministic.
+ * (i.e. any input value to be encryped/decrypted results in a single, consistent result.
+ *
+ * @param input A data value to be encrypted
+ * @param inputSize The size of the data value to be encrypted
+ * @param result A buffer through which the encrypted value may be returned
+ * @param maxResultSize The maximum size of the result buffer
+ * @param resultSize The size of an result put into the result buffer
+ * @param error A buffer through which error messages may be returned
+ * @param maxErrorSize The maximum size of the error buffer
+ * @param errorSize The size of an error message put into the error buffer
+ * @return success/failure return code
+ */
 #define G2_ENCRYPTION_PLUGIN_FUNCTION_ENCRYPT_DATA_FIELD_DETERMINISTIC int G2Encryption_EncryptDataFieldDeterministic(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
+
+/* Function used to decrypt a data value (deterministic methods)
+ *
+ * This function may only use encryption methodologies that are deterministic.
+ * (i.e. any input value to be encryped/decrypted results in a single, consistent result.
+ *
+ * @param input A data value to be decrypted
+ * @param inputSize The size of the data value to be decrypted
+ * @param result A buffer through which the decrypted value may be returned
+ * @param maxResultSize The maximum size of the result buffer
+ * @param resultSize The size of an result put into the result buffer
+ * @param error A buffer through which error messages may be returned
+ * @param maxErrorSize The maximum size of the error buffer
+ * @param errorSize The size of an error message put into the error buffer
+ * @return success/failure return code
+ */
 #define G2_ENCRYPTION_PLUGIN_FUNCTION_DECRYPT_DATA_FIELD_DETERMINISTIC int G2Encryption_DecryptDataFieldDeterministic(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
 
 
 
+/*
+ * Function definition preamble/postamble macros
+ */
+
+
 /**
-@def a macro which must be placed inside the init-plugin function, to prime the funcion
+@def a macro which must be placed inside the init-plugin function, to prime the function
 */
 #define INIT_PLUGIN_FUNCTION_PREAMBLE \
 /* set up base variables */ \
@@ -40,7 +159,7 @@ initializationErrorData.mErrorOccurred = 0; \
 
 
 /**
-@def a macro which must be placed inside the init-plugin function, to finialize the funcion
+@def a macro which must be placed inside the init-plugin function, to finalize the function
 */
 #define INIT_PLUGIN_FUNCTION_POSTAMBLE \
 /* prepare response */ \
@@ -60,7 +179,7 @@ return retVal;
 
 
 /**
-@def a macro which must be placed inside the close-plugin function, to prime the funcion
+@def a macro which must be placed inside the close-plugin function, to prime the function
 */
 #define CLOSE_PLUGIN_FUNCTION_PREAMBLE \
 /* set up base variables */ \
@@ -71,7 +190,7 @@ finalizationErrorData.mErrorOccurred = 0; \
 
 
 /**
-@def a macro which must be placed inside the close-plugin function, to finialize the funcion
+@def a macro which must be placed inside the close-plugin function, to finalize the function
 */
 #define CLOSE_PLUGIN_FUNCTION_POSTAMBLE \
 /* prepare response */ \
@@ -91,7 +210,7 @@ return retVal;
 
 
 /**
-@def a macro which must be placed inside the encrypt function, to prime the funcion
+@def a macro which must be placed inside the encrypt function, to prime the function
 */
 #define ENCRYPT_DATA_FIELD_FUNCTION_PREAMBLE \
 /* set up base variables */ \
@@ -102,8 +221,9 @@ bool resultSizeErrorOccurred = false; \
 *resultSize = 0; \
 *errorSize = 0;
 
+
 /**
-@def a macro which must be placed inside the encrypt function, to finialize the funcion
+@def a macro which must be placed inside the encrypt function, to finalize the function
 */
 #define ENCRYPT_DATA_FIELD_FUNCTION_POSTAMBLE \
 /* prepare response */ \
@@ -131,7 +251,7 @@ return retVal;
 
 
 /**
-@def a macro which must be placed inside the decrypt function, to prime the funcion
+@def a macro which must be placed inside the decrypt function, to prime the function
 */
 #define DECRYPT_DATA_FIELD_FUNCTION_PREAMBLE \
 /* set up base variables */ \
@@ -142,8 +262,9 @@ bool resultSizeErrorOccurred = false; \
 *resultSize = 0; \
 *errorSize = 0;
 
+
 /**
-@def a macro which must be placed inside the decrypt function, to finialize the funcion
+@def a macro which must be placed inside the decrypt function, to finalize the function
 */
 #define DECRYPT_DATA_FIELD_FUNCTION_POSTAMBLE \
 /* prepare response */ \
@@ -171,7 +292,7 @@ return retVal;
 
 
 /**
-@def a macro which must be placed inside the encrypt function, to prime the funcion
+@def a macro which must be placed inside the encrypt function, to prime the function
 */
 #define ENCRYPT_DATA_FIELD_DETERMINISTIC_FUNCTION_PREAMBLE \
 /* set up base variables */ \
@@ -182,8 +303,9 @@ bool resultSizeErrorOccurred = false; \
 *resultSize = 0; \
 *errorSize = 0;
 
+
 /**
-@def a macro which must be placed inside the encrypt function, to finialize the funcion
+@def a macro which must be placed inside the encrypt function, to finalize the function
 */
 #define ENCRYPT_DATA_FIELD_DETERMINISTIC_FUNCTION_POSTAMBLE \
 /* prepare response */ \
@@ -211,7 +333,7 @@ return retVal;
 
 
 /**
-@def a macro which must be placed inside the decrypt function, to prime the funcion
+@def a macro which must be placed inside the decrypt function, to prime the function
 */
 #define DECRYPT_DATA_FIELD_DETERMINISTIC_FUNCTION_PREAMBLE \
 /* set up base variables */ \
@@ -222,8 +344,9 @@ bool resultSizeErrorOccurred = false; \
 *resultSize = 0; \
 *errorSize = 0;
 
+
 /**
-@def a macro which must be placed inside the decrypt function, to finialize the funcion
+@def a macro which must be placed inside the decrypt function, to finalize the function
 */
 #define DECRYPT_DATA_FIELD_DETERMINISTIC_FUNCTION_POSTAMBLE \
 /* prepare response */ \
@@ -251,7 +374,7 @@ return retVal;
 
 
 /**
-@def a macro which must be placed inside the get-signature function, to prime the funcion
+@def a macro which must be placed inside the get-signature function, to prime the function
 */
 #define GET_SIGNATURE_FUNCTION_PREAMBLE \
 /* set up base variables */ \
@@ -262,8 +385,9 @@ bool signatureSizeErrorOccurred = false; \
 *signatureSize = 0; \
 *errorSize = 0;
 
+
 /**
-@def a macro which must be placed inside the get-signature function, to finialize the funcion
+@def a macro which must be placed inside the get-signature function, to finalize the function
 */
 #define GET_SIGNATURE_FUNCTION_POSTAMBLE \
 /* prepare response */ \
@@ -291,7 +415,7 @@ return retVal;
 
 
 /**
-@def a macro which must be placed inside the validate-signature-compatibility function, to prime the funcion
+@def a macro which must be placed inside the validate-signature-compatibility function, to prime the function
 */
 #define VALIDATE_SIGNATURE_COMPATIBILITY_FUNCTION_PREAMBLE \
 /* set up base variables */ \
@@ -303,7 +427,7 @@ bool signatureIsCompatible = false; \
 
 
 /**
-@def a macro which must be placed inside the validate-signature-compatibility function, to finialize the funcion
+@def a macro which must be placed inside the validate-signature-compatibility function, to finalize the function
 */
 #define VALIDATE_SIGNATURE_COMPATIBILITY_FUNCTION_POSTAMBLE \
 if (validationErrorData.mErrorOccurred) \
