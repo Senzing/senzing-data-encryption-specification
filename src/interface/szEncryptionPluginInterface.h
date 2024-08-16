@@ -1,19 +1,19 @@
 
 /**********************************************************************************
-© Copyright Senzing, Inc. 2020-2023
+© Copyright Senzing, Inc. 2020-2024
 The source code for this program is not published or otherwise divested
 of its trade secrets, irrespective of what has been deposited with the U.S.
 Copyright Office.
 **********************************************************************************/
 
 
-#ifndef G2_ENCRYPTION_PLUGIN_INTERFACE_HEADER_INCLUDED
-#define G2_ENCRYPTION_PLUGIN_INTERFACE_HEADER_INCLUDED
+#ifndef SZ_ENCRYPTION_PLUGIN_INTERFACE_HEADER_INCLUDED
+#define SZ_ENCRYPTION_PLUGIN_INTERFACE_HEADER_INCLUDED
 
 
 /* encryption interface headers */
-#include "g2EncryptionPluginInterface_defs.h"
-#include "g2EncryptionPluginInterface_macros.h"
+#include "szEncryptionPluginInterface_defs.h"
+#include "szEncryptionPluginInterface_macros.h"
 
 
 #ifdef __cplusplus
@@ -31,24 +31,24 @@ extern "C"
 
 
 /* Function used to initialize a plugin */
-_DLEXPORT G2_ENCRYPTION_PLUGIN_FUNCTION_INIT_PLUGIN;
+_DLEXPORT SZ_ENCRYPTION_PLUGIN_FUNCTION_INIT_PLUGIN;
 /* Function used to close a plugin */
-_DLEXPORT G2_ENCRYPTION_PLUGIN_FUNCTION_CLOSE_PLUGIN;
+_DLEXPORT SZ_ENCRYPTION_PLUGIN_FUNCTION_CLOSE_PLUGIN;
 
 /* Function used to retrieve the plugin signature */
-_DLEXPORT G2_ENCRYPTION_PLUGIN_FUNCTION_GET_SIGNATURE;
+_DLEXPORT SZ_ENCRYPTION_PLUGIN_FUNCTION_GET_SIGNATURE;
 /* Function used to validate the plugin signature compatibility */
-_DLEXPORT G2_ENCRYPTION_PLUGIN_FUNCTION_VALIDATE_SIGNATURE_COMPATIBILITY;
+_DLEXPORT SZ_ENCRYPTION_PLUGIN_FUNCTION_VALIDATE_SIGNATURE_COMPATIBILITY;
 
 /* Function used to encrypt a data value */
-_DLEXPORT G2_ENCRYPTION_PLUGIN_FUNCTION_ENCRYPT_DATA_FIELD;
+_DLEXPORT SZ_ENCRYPTION_PLUGIN_FUNCTION_ENCRYPT_DATA_FIELD;
 /* Function used to decrypt a data value */
-_DLEXPORT G2_ENCRYPTION_PLUGIN_FUNCTION_DECRYPT_DATA_FIELD;
+_DLEXPORT SZ_ENCRYPTION_PLUGIN_FUNCTION_DECRYPT_DATA_FIELD;
 
 /* Function used to encrypt a data value (deterministic methods) */
-_DLEXPORT G2_ENCRYPTION_PLUGIN_FUNCTION_ENCRYPT_DATA_FIELD_DETERMINISTIC;
+_DLEXPORT SZ_ENCRYPTION_PLUGIN_FUNCTION_ENCRYPT_DATA_FIELD_DETERMINISTIC;
 /* Function used to decrypt a data value (deterministic methods) */
-_DLEXPORT G2_ENCRYPTION_PLUGIN_FUNCTION_DECRYPT_DATA_FIELD_DETERMINISTIC;
+_DLEXPORT SZ_ENCRYPTION_PLUGIN_FUNCTION_DECRYPT_DATA_FIELD_DETERMINISTIC;
 
 
 #ifdef __cplusplus
