@@ -1,6 +1,6 @@
 
 /**********************************************************************************
-© Copyright Senzing, Inc. 2023
+© Copyright Senzing, Inc. 2023-2024
 The source code for this program is not published or otherwise divested
 of its trade secrets, irrespective of what has been deposited with the U.S.
 Copyright Office.
@@ -155,6 +155,7 @@ Copyright Office.
 int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData initializationErrorData; \
 initializationErrorData.mErrorOccurred = 0; \
+initializationErrorData.mErrorMessage[0] = 0; \
 *errorSize = 0;
 
 
@@ -186,6 +187,7 @@ return retVal;
 int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData finalizationErrorData; \
 finalizationErrorData.mErrorOccurred = 0; \
+finalizationErrorData.mErrorMessage[0] = 0; \
 *errorSize = 0;
 
 
@@ -217,6 +219,7 @@ return retVal;
 int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData encryptionErrorData; \
 encryptionErrorData.mErrorOccurred = 0; \
+encryptionErrorData.mErrorMessage[0] = 0; \
 bool resultSizeErrorOccurred = false; \
 *resultSize = 0; \
 *errorSize = 0;
@@ -258,6 +261,7 @@ return retVal;
 int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData decryptionErrorData; \
 decryptionErrorData.mErrorOccurred = 0; \
+decryptionErrorData.mErrorMessage[0] = 0; \
 bool resultSizeErrorOccurred = false; \
 *resultSize = 0; \
 *errorSize = 0;
@@ -299,6 +303,7 @@ return retVal;
 int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData encryptionErrorData; \
 encryptionErrorData.mErrorOccurred = 0; \
+encryptionErrorData.mErrorMessage[0] = 0; \
 bool resultSizeErrorOccurred = false; \
 *resultSize = 0; \
 *errorSize = 0;
@@ -340,6 +345,7 @@ return retVal;
 int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData decryptionErrorData; \
 decryptionErrorData.mErrorOccurred = 0; \
+decryptionErrorData.mErrorMessage[0] = 0; \
 bool resultSizeErrorOccurred = false; \
 *resultSize = 0; \
 *errorSize = 0;
@@ -381,6 +387,7 @@ return retVal;
 int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData getSignatureErrorData; \
 getSignatureErrorData.mErrorOccurred = 0; \
+getSignatureErrorData.mErrorMessage[0] = 0; \
 bool signatureSizeErrorOccurred = false; \
 *signatureSize = 0; \
 *errorSize = 0;
@@ -422,6 +429,7 @@ return retVal;
 int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData validationErrorData; \
 validationErrorData.mErrorOccurred = 0; \
+validationErrorData.mErrorMessage[0] = 0; \
 bool signatureIsCompatible = false; \
 *errorSize = 0;
 
