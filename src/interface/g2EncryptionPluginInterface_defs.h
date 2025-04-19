@@ -1,6 +1,6 @@
 
 /**********************************************************************************
-© Copyright Senzing, Inc. 2023
+© Copyright Senzing, Inc. 2023-2025
 The source code for this program is not published or otherwise divested
 of its trade secrets, irrespective of what has been deposited with the U.S.
 Copyright Office.
@@ -13,6 +13,7 @@ Copyright Office.
 
 /* standard C headers */
 #include <stddef.h>
+#include <stdint.h>
 
 
 /* constants for defining data structures */
@@ -70,7 +71,7 @@ struct CParameterList
 struct ErrorInfoData
 {
   /* boolean value indicating if an error occurred */
-  int mErrorOccurred;
+  int64_t mErrorOccurred;
   /* error description message */
   char mErrorMessage[G2_ENCRYPTION_PLUGIN___MAX_ERROR_MESSAGE_LENGTH];
 };
@@ -89,7 +90,7 @@ struct ErrorInfoData
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-typedef int G2EncryptionPluginInitPluginFunc(const struct CParameterList* configParams, char *error, const size_t maxErrorSize, size_t* errorSize);
+typedef int64_t G2EncryptionPluginInitPluginFunc(const struct CParameterList* configParams, char *error, const size_t maxErrorSize, size_t* errorSize);
 
 /* a pointer to the function used to initialize a plugin */
 typedef G2EncryptionPluginInitPluginFunc* G2EncryptionPluginInitPluginFuncPtr;
@@ -103,7 +104,7 @@ typedef G2EncryptionPluginInitPluginFunc* G2EncryptionPluginInitPluginFuncPtr;
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-typedef int G2EncryptionPluginClosePluginFunc(char *error, const size_t maxErrorSize, size_t* errorSize);
+typedef int64_t G2EncryptionPluginClosePluginFunc(char *error, const size_t maxErrorSize, size_t* errorSize);
 
 /* a pointer to the function used to close a plugin */
 typedef G2EncryptionPluginClosePluginFunc* G2EncryptionPluginClosePluginFuncPtr;
@@ -123,7 +124,7 @@ typedef G2EncryptionPluginClosePluginFunc* G2EncryptionPluginClosePluginFuncPtr;
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-typedef int G2EncryptionPluginGetSignatureFunc(char *signature, const size_t maxSignatureSize, size_t* signatureSize, char *error, const size_t maxErrorSize, size_t* errorSize);
+typedef int64_t G2EncryptionPluginGetSignatureFunc(char *signature, const size_t maxSignatureSize, size_t* signatureSize, char *error, const size_t maxErrorSize, size_t* errorSize);
 
 /* a pointer to the function used to retrieve the plugin signature */
 typedef G2EncryptionPluginGetSignatureFunc* G2EncryptionPluginGetSignatureFuncPtr;
@@ -142,7 +143,7 @@ typedef G2EncryptionPluginGetSignatureFunc* G2EncryptionPluginGetSignatureFuncPt
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-typedef int G2EncryptionPluginValidateSignatureCompatibilityFunc(const char *signatureToValidate, const size_t signatureToValidateSize, char *error, const size_t maxErrorSize, size_t* errorSize);
+typedef int64_t G2EncryptionPluginValidateSignatureCompatibilityFunc(const char *signatureToValidate, const size_t signatureToValidateSize, char *error, const size_t maxErrorSize, size_t* errorSize);
 
 /* a pointer to the function used to validate the plugin signature compatibility */
 typedef G2EncryptionPluginValidateSignatureCompatibilityFunc* G2EncryptionPluginValidateSignatureCompatibilityFuncPtr;
@@ -164,7 +165,7 @@ typedef G2EncryptionPluginValidateSignatureCompatibilityFunc* G2EncryptionPlugin
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-typedef int G2EncryptionPluginEncryptDataFieldFunc(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize);
+typedef int64_t G2EncryptionPluginEncryptDataFieldFunc(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize);
 
 /* a pointer to the function used to encrypt a data value */
 typedef G2EncryptionPluginEncryptDataFieldFunc* G2EncryptionPluginEncryptDataFieldFuncPtr;
@@ -186,7 +187,7 @@ typedef G2EncryptionPluginEncryptDataFieldFunc* G2EncryptionPluginEncryptDataFie
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-typedef int G2EncryptionPluginDecryptDataFieldFunc(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize);
+typedef int64_t G2EncryptionPluginDecryptDataFieldFunc(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize);
 
 /* a pointer to the function used to decrypt a data value */
 typedef G2EncryptionPluginDecryptDataFieldFunc* G2EncryptionPluginDecryptDataFieldFuncPtr;
@@ -208,7 +209,7 @@ typedef G2EncryptionPluginDecryptDataFieldFunc* G2EncryptionPluginDecryptDataFie
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-typedef int G2EncryptionPluginEncryptDataFieldDeterministicFunc(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize);
+typedef int64_t G2EncryptionPluginEncryptDataFieldDeterministicFunc(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize);
 
 /* a pointer to the function used to encrypt a data value */
 typedef G2EncryptionPluginEncryptDataFieldDeterministicFunc* G2EncryptionPluginEncryptDataFieldDeterministicFuncPtr;
@@ -230,7 +231,7 @@ typedef G2EncryptionPluginEncryptDataFieldDeterministicFunc* G2EncryptionPluginE
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-typedef int G2EncryptionPluginDecryptDataFieldDeterministicFunc(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize);
+typedef int64_t G2EncryptionPluginDecryptDataFieldDeterministicFunc(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize);
 
 /* a pointer to the function used to decrypt a data value */
 typedef G2EncryptionPluginDecryptDataFieldDeterministicFunc* G2EncryptionPluginDecryptDataFieldDeterministicFuncPtr;
