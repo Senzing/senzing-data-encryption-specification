@@ -1,6 +1,6 @@
 
 /**********************************************************************************
-© Copyright Senzing, Inc. 2023-2024
+© Copyright Senzing, Inc. 2023-2025
 The source code for this program is not published or otherwise divested
 of its trade secrets, irrespective of what has been deposited with the U.S.
 Copyright Office.
@@ -29,7 +29,7 @@ Copyright Office.
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-#define G2_ENCRYPTION_PLUGIN_FUNCTION_INIT_PLUGIN int G2Encryption_InitPlugin(const struct CParameterList* configParams, char *error, const size_t maxErrorSize, size_t* errorSize)
+#define G2_ENCRYPTION_PLUGIN_FUNCTION_INIT_PLUGIN int64_t G2Encryption_InitPlugin(const struct CParameterList* configParams, char *error, const size_t maxErrorSize, size_t* errorSize)
 
 /* Function used to close a plugin
  *
@@ -38,7 +38,7 @@ Copyright Office.
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-#define G2_ENCRYPTION_PLUGIN_FUNCTION_CLOSE_PLUGIN int G2Encryption_ClosePlugin(char *error, const size_t maxErrorSize, size_t* errorSize)
+#define G2_ENCRYPTION_PLUGIN_FUNCTION_CLOSE_PLUGIN int64_t G2Encryption_ClosePlugin(char *error, const size_t maxErrorSize, size_t* errorSize)
 
 
 /* Function used to retrieve the plugin signature
@@ -54,7 +54,7 @@ Copyright Office.
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-#define G2_ENCRYPTION_PLUGIN_FUNCTION_GET_SIGNATURE int G2Encryption_GetSignature(char *signature, const size_t maxSignatureSize, size_t* signatureSize, char *error, const size_t maxErrorSize, size_t* errorSize)
+#define G2_ENCRYPTION_PLUGIN_FUNCTION_GET_SIGNATURE int64_t G2Encryption_GetSignature(char *signature, const size_t maxSignatureSize, size_t* signatureSize, char *error, const size_t maxErrorSize, size_t* errorSize)
 
 /* Function used to validate the plugin signature compatibility
  *
@@ -68,7 +68,7 @@ Copyright Office.
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-#define G2_ENCRYPTION_PLUGIN_FUNCTION_VALIDATE_SIGNATURE_COMPATIBILITY int G2Encryption_ValidateSignatureCompatibility(const char *signatureToValidate, const size_t signatureToValidateSize, char *error, const size_t maxErrorSize, size_t* errorSize)
+#define G2_ENCRYPTION_PLUGIN_FUNCTION_VALIDATE_SIGNATURE_COMPATIBILITY int64_t G2Encryption_ValidateSignatureCompatibility(const char *signatureToValidate, const size_t signatureToValidateSize, char *error, const size_t maxErrorSize, size_t* errorSize)
 
 
 /* Function used to encrypt a data value
@@ -86,7 +86,7 @@ Copyright Office.
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-#define G2_ENCRYPTION_PLUGIN_FUNCTION_ENCRYPT_DATA_FIELD int G2Encryption_EncryptDataField(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
+#define G2_ENCRYPTION_PLUGIN_FUNCTION_ENCRYPT_DATA_FIELD int64_t G2Encryption_EncryptDataField(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
 
 /* Function used to decrypt a data value
  *
@@ -103,7 +103,7 @@ Copyright Office.
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-#define G2_ENCRYPTION_PLUGIN_FUNCTION_DECRYPT_DATA_FIELD int G2Encryption_DecryptDataField(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
+#define G2_ENCRYPTION_PLUGIN_FUNCTION_DECRYPT_DATA_FIELD int64_t G2Encryption_DecryptDataField(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
 
 
 /* Function used to encrypt a data value (deterministic methods)
@@ -121,7 +121,7 @@ Copyright Office.
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-#define G2_ENCRYPTION_PLUGIN_FUNCTION_ENCRYPT_DATA_FIELD_DETERMINISTIC int G2Encryption_EncryptDataFieldDeterministic(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
+#define G2_ENCRYPTION_PLUGIN_FUNCTION_ENCRYPT_DATA_FIELD_DETERMINISTIC int64_t G2Encryption_EncryptDataFieldDeterministic(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
 
 /* Function used to decrypt a data value (deterministic methods)
  *
@@ -138,7 +138,7 @@ Copyright Office.
  * @param errorSize The size of an error message put into the error buffer
  * @return success/failure return code
  */
-#define G2_ENCRYPTION_PLUGIN_FUNCTION_DECRYPT_DATA_FIELD_DETERMINISTIC int G2Encryption_DecryptDataFieldDeterministic(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
+#define G2_ENCRYPTION_PLUGIN_FUNCTION_DECRYPT_DATA_FIELD_DETERMINISTIC int64_t G2Encryption_DecryptDataFieldDeterministic(const char *input, const size_t inputSize, char *result, const size_t maxResultSize, size_t* resultSize, char *error, const size_t maxErrorSize, size_t* errorSize)
 
 
 
@@ -152,7 +152,7 @@ Copyright Office.
 */
 #define INIT_PLUGIN_FUNCTION_PREAMBLE \
 /* set up base variables */ \
-int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
+int64_t retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData initializationErrorData; \
 initializationErrorData.mErrorOccurred = 0; \
 initializationErrorData.mErrorMessage[0] = 0; \
@@ -184,7 +184,7 @@ return retVal;
 */
 #define CLOSE_PLUGIN_FUNCTION_PREAMBLE \
 /* set up base variables */ \
-int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
+int64_t retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData finalizationErrorData; \
 finalizationErrorData.mErrorOccurred = 0; \
 finalizationErrorData.mErrorMessage[0] = 0; \
@@ -216,7 +216,7 @@ return retVal;
 */
 #define ENCRYPT_DATA_FIELD_FUNCTION_PREAMBLE \
 /* set up base variables */ \
-int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
+int64_t retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData encryptionErrorData; \
 encryptionErrorData.mErrorOccurred = 0; \
 encryptionErrorData.mErrorMessage[0] = 0; \
@@ -258,7 +258,7 @@ return retVal;
 */
 #define DECRYPT_DATA_FIELD_FUNCTION_PREAMBLE \
 /* set up base variables */ \
-int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
+int64_t retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData decryptionErrorData; \
 decryptionErrorData.mErrorOccurred = 0; \
 decryptionErrorData.mErrorMessage[0] = 0; \
@@ -300,7 +300,7 @@ return retVal;
 */
 #define ENCRYPT_DATA_FIELD_DETERMINISTIC_FUNCTION_PREAMBLE \
 /* set up base variables */ \
-int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
+int64_t retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData encryptionErrorData; \
 encryptionErrorData.mErrorOccurred = 0; \
 encryptionErrorData.mErrorMessage[0] = 0; \
@@ -342,7 +342,7 @@ return retVal;
 */
 #define DECRYPT_DATA_FIELD_DETERMINISTIC_FUNCTION_PREAMBLE \
 /* set up base variables */ \
-int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
+int64_t retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData decryptionErrorData; \
 decryptionErrorData.mErrorOccurred = 0; \
 decryptionErrorData.mErrorMessage[0] = 0; \
@@ -384,7 +384,7 @@ return retVal;
 */
 #define GET_SIGNATURE_FUNCTION_PREAMBLE \
 /* set up base variables */ \
-int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
+int64_t retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData getSignatureErrorData; \
 getSignatureErrorData.mErrorOccurred = 0; \
 getSignatureErrorData.mErrorMessage[0] = 0; \
@@ -426,7 +426,7 @@ return retVal;
 */
 #define VALIDATE_SIGNATURE_COMPATIBILITY_FUNCTION_PREAMBLE \
 /* set up base variables */ \
-int retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
+int64_t retVal = G2_ENCRYPTION_PLUGIN___SUCCESS; \
 struct ErrorInfoData validationErrorData; \
 validationErrorData.mErrorOccurred = 0; \
 validationErrorData.mErrorMessage[0] = 0; \
