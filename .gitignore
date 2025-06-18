@@ -51,4 +51,8 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# Visual Studio code
+.vscode/*
+!.vscode/cspell.json
+*.code-workspace
 .history
