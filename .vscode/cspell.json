@@ -1,19 +1,17 @@
 {
-  // Version of the setting file.  Always 0.2
   "version": "0.2",
-  // language - current active spelling language
   "language": "en",
-  // words - list of words to be always considered correct
   "words": [
     "CCLA",
     "CODEOWNER",
-    "dkms",
-    "dylib",
-    "gdev",
     "ICLA",
     "Mkfile",
-    "postamble",
     "Senzing",
+    "dkms",
+    "dylib",
+    "esbenp",
+    "gdev",
+    "postamble",
     "stackoverflow",
     "symvers"
   ],
