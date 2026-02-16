@@ -4,18 +4,18 @@
   "words": [
     "CCLA",
     "CODEOWNER",
-    "ICLA",
-    "Mkfile",
-    "Senzing",
+    "cooldown",
     "dkms",
     "dylib",
     "esbenp",
     "gdev",
+    "ICLA",
+    "kernelsam",
+    "Mkfile",
     "postamble",
+    "Senzing",
     "stackoverflow",
     "symvers"
   ],
-  "ignorePaths": [
-    ".git/**"
-  ]
+  "ignorePaths": [".git/**"]
 }
