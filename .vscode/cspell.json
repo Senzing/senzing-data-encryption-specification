@@ -7,7 +7,6 @@
     "cooldown",
     "dkms",
     "dylib",
-    "esbenp",
     "gdev",
     "ICLA",
     "kernelsam",
@@ -17,5 +16,7 @@
     "stackoverflow",
     "symvers"
   ],
-  "ignorePaths": [".git/**"]
+  "ignorePaths": [
+    ".git/**"
+  ]
 }
